@@ -6,6 +6,7 @@ import storageRoutes from "../modules/storage/routes/storage.routes.js";
 import assetRoutes from "../modules/assets/asset.routes.js";
 import projectRoutes from "../modules/projects/project.routes.js";
 import templateRoutes from "../modules/templates/template.routes.js";
+import voiceRoutes from "../modules/voices/voice.routes.js";
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.use("/storage", storageRoutes);
 router.use("/assets", assetRoutes);
 router.use("/projects", projectRoutes);
 router.use("/templates", templateRoutes);
+router.use("/voices", voiceRoutes);
 
 export default router;
