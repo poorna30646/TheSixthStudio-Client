@@ -78,6 +78,8 @@ export const assertObjectKeyAccess = (key, user) => {
     const parts = key.slice(rootPrefix.length).split("/");
     const [scope, ownerOrFile, folderOrUndefined, fileOrUndefined] = parts;
     let ownerId;
+    let projectId;
+    let category;
     let fileName;
 
     if (scope === "users") {
@@ -90,6 +92,7 @@ export const assertObjectKeyAccess = (key, user) => {
         }
 
         ownerId = ownerOrFile;
+        category = "avatars";
         fileName = fileOrUndefined;
 
         if (user.role !== "admin" && String(user.userId) !== ownerId) {
@@ -106,6 +109,8 @@ export const assertObjectKeyAccess = (key, user) => {
             throw new ApiError(400, "Invalid project storage object key");
         }
 
+        projectId = ownerOrFile;
+        category = folderOrUndefined;
         fileName = fileOrUndefined;
     } else if (
         ["templates", "voices", "exports", "temp"].includes(scope)
@@ -114,6 +119,7 @@ export const assertObjectKeyAccess = (key, user) => {
             throw new ApiError(400, "Invalid root storage object key");
         }
 
+        category = scope;
         fileName = ownerOrFile;
     } else {
         throw new ApiError(400, "Invalid storage object key");
@@ -123,7 +129,7 @@ export const assertObjectKeyAccess = (key, user) => {
         throw new ApiError(400, "Invalid storage object file name");
     }
 
-    return { ownerId, scope };
+    return { ownerId, projectId, category, scope };
 };
 
 export const getObjectMetadata = async (key) => {

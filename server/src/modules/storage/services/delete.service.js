@@ -1,5 +1,6 @@
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import ApiError from "../../../utils/ApiError.js";
+import assetRepository from "../../assets/asset.repository.js";
 import s3Client, { S3_BUCKET_NAME } from "../config/s3.config.js";
 import {
     assertObjectKeyAccess,
@@ -20,6 +21,7 @@ export const deleteObject = async ({ key, user }) => {
                 Key: key,
             })
         );
+        await assetRepository.markDeletedByKey(key);
 
         return { key, deleted: true };
     } catch (error) {
