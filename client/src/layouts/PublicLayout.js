@@ -1,18 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Outlet } from 'react-router-dom';
+import Footer from '../components/marketing/Footer';
+import Navbar from '../components/marketing/Navbar';
 
-export function PublicLayout({ children }) {
+/**
+ * Marketing shell: global public navigation, content outlet, and footer.
+ */
+export function PublicLayout() {
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text-primary)]">
-      <main className="mx-auto flex min-h-screen w-full max-w-7xl items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
-        {children}
+      <a
+        href="#main-content"
+        className="fixed left-4 top-2 z-50 -translate-y-20 rounded-lg bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 transition focus:translate-y-0"
+      >
+        Skip to content
+      </a>
+      <Navbar />
+      <main id="main-content">
+        <Outlet />
       </main>
+      <Footer />
     </div>
   );
 }
-
-PublicLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default PublicLayout;

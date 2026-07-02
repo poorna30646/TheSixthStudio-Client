@@ -7,7 +7,7 @@ const endpoints = Object.freeze({
     login: '/auth/login',
     register: '/auth/register',
     logout: '/auth/logout',
-    refresh: '/auth/refresh',
+    refresh: '/auth/refresh-token',
     me: '/auth/me',
     forgotPassword: '/auth/forgot-password',
     resetPassword: '/auth/reset-password',

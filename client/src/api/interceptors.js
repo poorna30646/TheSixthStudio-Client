@@ -112,9 +112,10 @@ async function refreshAccessToken() {
       headers: { Accept: 'application/json' },
     });
 
-    const nextToken = response?.data?.accessToken;
+    const nextToken = response?.data?.data?.accessToken;
 
     if (typeof nextToken !== 'string' || !nextToken.trim()) {
+
       throw new Error('Refresh token response did not include an access token.');
     }
 
@@ -155,7 +156,7 @@ export function initializeInterceptors(callbacks = {}) {
   apiClient.interceptors.request.use((config) => attachHeaders(config));
 
   apiClient.interceptors.response.use(
-    (response) => normalizeAxiosResponse(response),
+    (response) => response,
     async (error) => {
       const config = error?.config;
 

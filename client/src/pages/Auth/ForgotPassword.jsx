@@ -24,7 +24,7 @@ export function ForgotPassword() {
     setMessage('');
 
     try {
-      await forgotPassword(email.trim());
+      await forgotPassword({ email: email.trim() });
       setMessage('If an account exists for that address, we have sent a recovery link.');
     } catch (submitError) {
       setError(submitError?.message || 'We could not send the password reset message.');

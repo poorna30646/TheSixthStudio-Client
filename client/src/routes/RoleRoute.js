@@ -1,24 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import PageLoader from '../components/feedback/PageLoader';
 import { useAuth } from '../hooks/useAuth';
 
+/**
+ * Adds role policy to a route branch. An empty role list keeps the route
+ * policy-neutral while backend role vocabulary is being established.
+ */
 export function RoleRoute({ children, allowedRoles = [] }) {
-  const { user } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
+  const location = useLocation();
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
+  if (isLoading) {
+    return <PageLoader />;
   }
 
-  if (allowedRoles.length && !allowedRoles.includes(user.role)) {
+  if (!isAuthenticated || !user) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
+
+  if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
     return <Navigate to="/dashboard" replace />;
   }
 
-  return children;
+  return children || <Outlet />;
 }
 
 RoleRoute.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   allowedRoles: PropTypes.arrayOf(PropTypes.string),
 };
 

@@ -1,24 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import PageLoader from '../components/feedback/PageLoader';
 import { useAuth } from '../hooks/useAuth';
 
+/**
+ * Guest-only branch for auth screens. Marketing routes intentionally do not
+ * use this guard and remain available to signed-in users.
+ */
 export function PublicRoute({ children }) {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
-    return <div className="min-h-screen bg-[var(--color-background)]" />;
+    return <PageLoader />;
   }
 
   if (isAuthenticated) {
     return <Navigate to="/dashboard" replace />;
   }
 
-  return children;
+  return children || <Outlet />;
 }
 
 PublicRoute.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default PublicRoute;
