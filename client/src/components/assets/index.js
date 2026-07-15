@@ -6,3 +6,5 @@ export { default as AssetCard } from './AssetCard';
 export { default as AssetPreview } from './AssetPreview';
 export { default as AssetStats } from './AssetStats';
 export { default as EmptyAssets } from './EmptyAssets';
+export { default as UploadAssetModal } from './UploadAssetModal';
+export { default as AssetDetailsModal } from './AssetDetailsModal';

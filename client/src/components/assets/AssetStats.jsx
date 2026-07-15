@@ -9,10 +9,13 @@ const CATEGORY_LABELS = {
 
 export function AssetStats({ assets, storage }) {
   const counts = assets.reduce(
-    (acc, asset) => ({
-      ...acc,
-      [asset.type]: (acc[asset.type] || 0) + 1,
-    }),
+    (acc, asset) => {
+      const type = asset.type === 'archive' ? 'document' : asset.type;
+      return {
+        ...acc,
+        [type]: (acc[type] || 0) + 1,
+      };
+    },
     {}
   );
 
@@ -26,7 +29,7 @@ export function AssetStats({ assets, storage }) {
           </div>
           <div className="text-right">
             <p className="text-sm font-semibold text-white">{storage.used}</p>
-            <p className="text-xs text-slate-400">of {storage.total} used</p>
+            <p className="text-xs text-slate-400">{storage.totalLabel || `of ${storage.total} used`}</p>
           </div>
         </div>
 
@@ -40,7 +43,9 @@ export function AssetStats({ assets, storage }) {
             <p className="mt-1 text-sm text-slate-200">{storage.used}</p>
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">Remaining</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+              {storage.remainingLabel || 'Remaining'}
+            </p>
             <p className="mt-1 text-sm text-slate-200">{storage.remaining}</p>
           </div>
         </div>

@@ -2,23 +2,30 @@ import React from 'react';
 
 export function AssetsToolbar({
   searchValue = '',
+  onSearchChange,
   filterValue = 'all',
+  onFilterChange,
   filterOptions,
   sortValue,
+  onSortChange,
   sortOptions,
   viewMode = 'grid',
+  onViewModeChange,
+  onUpload,
 }) {
   return (
     <div className="mt-7 flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/40 p-4 lg:flex-row lg:items-center lg:justify-between">
       <div className="grid flex-1 grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.4fr)_minmax(160px,0.6fr)_minmax(180px,0.7fr)]">
         <input
-          defaultValue={searchValue}
+          value={searchValue}
+          onChange={(event) => onSearchChange?.(event.target.value)}
           placeholder="Search assets"
           className="h-10 rounded-xl border border-slate-800 bg-slate-950 px-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-yellow-500"
         />
 
         <select
-          defaultValue={filterValue}
+          value={filterValue}
+          onChange={(event) => onFilterChange?.(event.target.value)}
           className="h-10 rounded-xl border border-slate-800 bg-slate-950 px-3 text-sm text-slate-200 outline-none focus:border-yellow-500"
         >
           {filterOptions.map((option) => (
@@ -29,7 +36,8 @@ export function AssetsToolbar({
         </select>
 
         <select
-          defaultValue={sortValue}
+          value={sortValue}
+          onChange={(event) => onSortChange?.(event.target.value)}
           className="h-10 rounded-xl border border-slate-800 bg-slate-950 px-3 text-sm text-slate-200 outline-none focus:border-yellow-500"
         >
           {sortOptions.map((option) => (
@@ -44,6 +52,7 @@ export function AssetsToolbar({
         <div className="flex rounded-xl border border-slate-800 bg-slate-950 p-1">
           <button
             type="button"
+            onClick={() => onViewModeChange?.('grid')}
             className={`h-8 rounded-lg px-3 text-xs font-semibold ${
               viewMode === 'grid' ? 'bg-yellow-500 text-slate-950' : 'text-slate-400 hover:text-white'
             }`}
@@ -52,6 +61,7 @@ export function AssetsToolbar({
           </button>
           <button
             type="button"
+            onClick={() => onViewModeChange?.('list')}
             className={`h-8 rounded-lg px-3 text-xs font-semibold ${
               viewMode === 'list' ? 'bg-yellow-500 text-slate-950' : 'text-slate-400 hover:text-white'
             }`}
@@ -62,6 +72,7 @@ export function AssetsToolbar({
 
         <button
           type="button"
+          onClick={onUpload}
           className="h-10 rounded-xl bg-yellow-500 px-4 text-sm font-semibold text-slate-950 hover:bg-yellow-400"
         >
           Upload Asset
