@@ -1,0 +1,11 @@
+- [ ] Create MODULE4_PHASE46_PLAN.md (internal) and get approval
+- [ ] Fix delete workflow:
+  - [x] Wire DeleteProjectModal to call remove(projectId) from useProjects
+  - [x] On success: close modal, refresh(), ensure card removed without page reload
+- [ ] Fix owner display:
+  - [x] Remove fallback that forces 'Unknown' when owner info is missing
+  - [x] If backend returns owner fields, display them; otherwise show 'You'
+- [ ] Single remaining bug (MODULE4_PHASE462):
+  - [ ] Ensure Delete modal shows selected project's name (data flow fix only)
+- [ ] Generate MODULE4_PHASE46_REPORT.md
+

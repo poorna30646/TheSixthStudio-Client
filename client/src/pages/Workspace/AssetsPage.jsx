@@ -1,16 +1,51 @@
 import React from 'react';
-import ProductAreaPage from '../../components/product/ProductAreaPage';
+import {
+  AssetGrid,
+  AssetList,
+  AssetStats,
+  AssetsHeader,
+  AssetsToolbar,
+  EmptyAssets,
+} from '../../components/assets';
+import {
+  ASSET_CATEGORIES,
+  ASSET_SORT_OPTIONS,
+  ASSETS,
+  STORAGE_SUMMARY,
+} from '../../data/assets';
 
 export function AssetsPage() {
   return (
-    <ProductAreaPage
-      eyebrow="Library"
-      title="Assets"
-      description="A shared home for uploaded footage, images, audio, and generated media."
-      actionLabel="Upload assets"
-      emptyTitle="Build your media library"
-      emptyDescription="Uploaded files will appear here with searchable metadata and project associations."
-    />
+    <div className="mx-auto w-full max-w-7xl">
+      <AssetsHeader
+        eyebrow="Library"
+        title="Assets"
+        description="Manage images, videos, audio, and documents used across production workflows."
+      />
+
+      <AssetStats assets={ASSETS} storage={STORAGE_SUMMARY} />
+
+      <AssetsToolbar
+        searchValue=""
+        filterValue="all"
+        filterOptions={ASSET_CATEGORIES}
+        sortValue="uploaded_desc"
+        sortOptions={ASSET_SORT_OPTIONS}
+        viewMode="grid"
+      />
+
+      <section className="mt-7">
+        {ASSETS.length === 0 ? (
+          <EmptyAssets />
+        ) : (
+          <AssetGrid assets={ASSETS} />
+        )}
+      </section>
+
+      <section className="mt-7">
+        <AssetList assets={ASSETS} />
+      </section>
+    </div>
   );
 }
 

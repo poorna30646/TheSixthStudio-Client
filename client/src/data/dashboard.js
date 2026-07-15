@@ -47,4 +47,35 @@ export const DASHBOARD_INITIAL_DATA = Object.freeze({
   ],
 });
 
+/**
+ * DashboardPage Phase 4.2 mock data.
+ * Kept as named exports to support direct composition in the page.
+ */
+export const stats = [
+  { title: 'Projects', value: 12, description: 'Active productions' },
+  { title: 'Videos', value: 31, description: 'Drafts & renders' },
+  { title: 'Assets', value: 87, description: 'Uploaded media' },
+  { title: 'Storage', value: '2.4 GB', description: 'Used this month' },
+];
+
+export const recentProjects = [
+  { id: 1, name: 'AI Podcast', updated: '2 hours ago' },
+  { id: 2, name: 'Marketing Reel', updated: 'Yesterday' },
+  { id: 3, name: 'Product Teaser', updated: '3 days ago' },
+];
+
+export const recentVideos = [
+  { id: 1, name: 'Launch teaser v3', updated: 'Today' },
+  { id: 2, name: 'Founder overview', updated: 'Yesterday' },
+  { id: 3, name: 'Customer quote cut', updated: '2 days ago' },
+];
+
+export const activity = [
+  { id: 'a1', title: 'Created a new project', time: '2 hours ago' },
+  { id: 'a2', title: 'Uploaded an asset', time: 'Today' },
+  { id: 'a3', title: 'Completed the render', time: 'Yesterday' },
+  { id: 'a4', title: 'Updated project details', time: '3 days ago' },
+];
+
 export default DASHBOARD_INITIAL_DATA;
+
